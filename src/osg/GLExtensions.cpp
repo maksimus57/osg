@@ -949,6 +949,10 @@ GLExtensions::GLExtensions(unsigned int in_contextID):
 
     setGLExtensionFuncPtr(glBindImageTexture, "glBindImageTexture", "glBindImageTextureARB", validContext);
 
+// FlightGear modification : check the GL version as well
+#if defined(__APPLE__)
+    isTextureStorageEnabled = isTextureStorageEnabled && (glVersion >= 4.0f);
+#endif
 
     // Texture3D extensions
     isTexture3DFast = validContext && (OSG_GL3_FEATURES || isGLExtensionSupported(contextID,"GL_EXT_texture3D"));
