@@ -1053,6 +1053,11 @@ IF(CMAKE_COMPILER_IS_GNUCXX)
     # Previous included -Wformat=2 in OSG_AGGRESSIVE_WARNING_FLAGS but had to remove it due to standard library errors
 
 
+    # FlightGear: force O3 for RelWithDebInfo builds
+    set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-O3 -g -DNDEBUG")
+    set(CMAKE_C_FLAGS_RELWITHDEBINFO  "-O3 -g -DNDEBUG")
+    # End of FlightGear ###########
+
 ELSEIF(MSVC)
         #disable specific warning level 4 warnings:
         #C4100 'identifier' : unreferenced formal parameter
@@ -1060,6 +1065,11 @@ ELSEIF(MSVC)
         #C4706 assignment within conditional expression
         #C4589: Constructor of abstract class 'osgGA::CameraManipulator' ignores initializer for virtual base class 'osg::Object'
         SET(OSG_AGGRESSIVE_WARNING_FLAGS /W4 /wd4589 /wd4706 /wd4127 /wd4100)
+
+        # FlightGear: force O3 for RelWithDebInfo builds
+        set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "/Zi /O2 /Ob2 /D NDEBUG")
+        set(CMAKE_C_FLAGS_RELWITHDEBINFO "/Zi /O2 /Ob2 /D NDEBUG")
+        #endif
 ELSEIF(CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
         SET(OSG_AGGRESSIVE_WARNING_FLAGS  -Wall -Wparentheses -Wno-long-long -Wno-import -pedantic -Wreturn-type -Wmissing-braces -Wunknown-pragmas -Wunused -Wno-overloaded-virtual)
 
@@ -1095,6 +1105,11 @@ ELSEIF(CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
 
             set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-overloaded-virtual -Wno-conversion")
             set(WARNING_CFLAGS "")
+
+            # FlightGear: force O3 for RelWithDebInfo builds
+            set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-O3 -g -DNDEBUG")
+            set(CMAKE_C_FLAGS_RELWITHDEBINFO  "-O3 -g -DNDEBUG")
+            # End of FlightGear ###########
         ENDIF()
 ENDIF()
 
