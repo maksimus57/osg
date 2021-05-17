@@ -33,6 +33,11 @@ if(COMMAND cmake_policy)
     # INTERPROCEDURAL_OPTIMIZATION is enforced when enabled.
     # Allows passing -DCMAKE_INTERPROCEDURAL_OPTIMIZATION=ON
     cmake_policy(SET CMP0069 NEW)
+
+
+   #### FlightGear: macOS: set RPATH policy
+   cmake_policy(SET CMP0042 NEW)
+   ####
 endif()
 
 IF(APPLE)
@@ -127,7 +132,27 @@ ENDIF()
 
 SET(OPENSCENEGRAPH_VERSION ${OPENSCENEGRAPH_MAJOR_VERSION}.${OPENSCENEGRAPH_MINOR_VERSION}.${OPENSCENEGRAPH_PATCH_VERSION})
 
-SET(OSG_PLUGINS osgPlugins-${OPENSCENEGRAPH_VERSION})
+#### FlightGear : change pluginPath
+IF (APPLE)
+  # remove the version suffix from OSG_PLUGINS, since
+  # codesigning cannot tolerate periods in subdirs of Contents/PlugIns
+  # osgDB Registry code modified to match.
+  SET(OSG_PLUGINS osgPlugins)
+
+  # codesigning doesn't like '.so' suffix
+  set(CMAKE_SHARED_MODULE_SUFFIX ".dylib")
+  set(CMAKE_SHARED_MODULE_SUFFIX_CXX ".dylib")
+
+  # our deployment target is 10.9 for the moment (consistent with
+  # CmakeLists for SimGear and FlightGear)
+  set(CMAKE_OSX_DEPLOYMENT_TARGET 10.9)
+
+  # set this so we don't need to run install_name_tool during deployment phase
+  set(CMAKE_OSX_RPATH 1)
+ELSE()
+  SET(OSG_PLUGINS osgPlugins-${OPENSCENEGRAPH_VERSION})
+ENDIF()
+######################################################################
 
 SET(OSG_PLUGIN_PREFIX "")
 
@@ -748,7 +773,10 @@ IF(ANDROID AND OSG_FIND_3RD_PARTY_DEPS)
     ANDROID_3RD_PARTY()
 ELSE()
 # Common to all platforms except android:
-    FIND_PACKAGE(Freetype)
+    #### FlightGear: change Freetype to REQUIRED
+    FIND_PACKAGE(Freetype REQUIRED)
+    ####
+
     FIND_PACKAGE(ilmbase)
     FIND_PACKAGE(Inventor)
     FIND_PACKAGE(Jasper)

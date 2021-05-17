@@ -780,8 +780,15 @@ std::string Registry::createLibraryNameForExtension(const std::string& ext)
 
     ExtensionAliasMap::iterator itr=_extAliasMap.find(lowercase_ext);
     if (itr!=_extAliasMap.end() && ext != itr->second) return createLibraryNameForExtension(itr->second);
-
+    
+// Flightgear change: don't include version nunber in the plugin path, macOS code-signing 
+// forbids code in paths containing '.'
+#if defined(__APPLE__)   
+    std::string prepend = std::string("osgPlugins/");
+#else    
     std::string prepend = std::string("osgPlugins-")+std::string(osgGetVersion())+std::string("/");
+#endif
+// end of FlightGear change
 
 #if defined(__CYGWIN__)
     return prepend+"cygwin_"+"osgdb_"+lowercase_ext+OSG_LIBRARY_POSTFIX_WITH_QUOTES+".dll";
