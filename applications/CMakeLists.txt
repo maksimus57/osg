@@ -27,12 +27,18 @@ SET(TARGET_COMMON_LIBRARIES
 )
 
 IF(DYNAMIC_OPENSCENEGRAPH)
+
+   #### FlightGear: build less stuff
+
+
     ADD_SUBDIRECTORY(osgviewer)
     ADD_SUBDIRECTORY(osgarchive)
     ADD_SUBDIRECTORY(osgconv)
-    ADD_SUBDIRECTORY(osgfilecache)
+    # ADD_SUBDIRECTORY(osgfilecache)
     ADD_SUBDIRECTORY(osgversion)
-    ADD_SUBDIRECTORY(present3D)
+    # ADD_SUBDIRECTORY(present3D)
+
+       ####
 ELSE()
     # need to define this on win32 or linker cries about _declspecs
     ADD_DEFINITIONS(-DOSG_LIBRARY_STATIC)

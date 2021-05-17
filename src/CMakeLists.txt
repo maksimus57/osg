@@ -8,6 +8,7 @@ ENDIF()
 
 #the old construct SUBDIRS( was substituted by ADD_SUBDIRECTORY that is to be preferred according on CMake docs.
 FOREACH( mylibfolder
+   #### FlightGear: build less stuff
         OpenThreads
         osg
         osgDB
@@ -15,19 +16,20 @@ FOREACH( mylibfolder
         osgGA
         osgText
         osgViewer
-        osgAnimation
+        # osgAnimation
         osgFX
-        osgManipulator
+        #osgManipulator
         osgParticle
-        osgUI
-        osgVolume
-        osgShadow
+        # osgUI
+        # osgVolume
+        # # osgShadow
         osgSim
         osgTerrain
-        osgWidget
-        osgPresentation
-        osgWrappers/serializers
+        # osgWidget
+        # osgPresentation
+        #osgWrappers/serializers
         osgPlugins
+    ####
     )
 
     ADD_SUBDIRECTORY(${mylibfolder})
