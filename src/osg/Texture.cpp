@@ -23,6 +23,8 @@
 #include <osg/Texture1D>
 #include <osg/ContextData>
 
+#include <algorithm>
+
 #include <OpenThreads/ScopedLock>
 #include <OpenThreads/Mutex>
 
