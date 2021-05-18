@@ -39,5 +39,5 @@ ENDFOREACH()
 OPTION(BUILD_OSG_DEPRECATED_SERIALIZERS "Build deprecated .osg serializers" ON)
 
 if(BUILD_OSG_DEPRECATED_SERIALIZERS)
-    ADD_SUBDIRECTORY(osgWrappers/deprecated-dotosg)
+#    ADD_SUBDIRECTORY(osgWrappers/deprecated-dotosg)
 endif()
