@@ -64,7 +64,7 @@ endmacro()
 # ADD_SUBDIRECTORY(revisions)
 # ADD_SUBDIRECTORY(view)
 #ADD_SUBDIRECTORY(shadow)
-#ADD_SUBDIRECTORY(terrain)
+ADD_SUBDIRECTORY(terrain)
 
 ############################################################
 #
