@@ -44,11 +44,11 @@ class ValueObject;
   * the standard pure virtual clone, isSameKindAs and className methods
   * which are required for all Object subclasses.*/
 #define META_Object(library,name) \
-        virtual osg::Object* cloneType() const { return new name (); } \
-        virtual osg::Object* clone(const osg::CopyOp& copyop) const { return new name (*this,copyop); } \
-        virtual bool isSameKindAs(const osg::Object* obj) const { return dynamic_cast<const name *>(obj)!=NULL; } \
-        virtual const char* libraryName() const { return #library; }\
-        virtual const char* className() const { return #name; }
+        virtual osg::Object* cloneType() const override { return new name (); } \
+        virtual osg::Object* clone(const osg::CopyOp& copyop) const override { return new name (*this,copyop); } \
+        virtual bool isSameKindAs(const osg::Object* obj) const override { return dynamic_cast<const name *>(obj)!=NULL; } \
+        virtual const char* libraryName() const override { return #library; }\
+        virtual const char* className() const override { return #name; }
 
 /** Helper macro that creates a static proxy object to call singleton function on it's construction, ensuring that the singleton gets initialized at startup.*/
 #define OSG_INIT_SINGLETON_PROXY(ProxyName, Func) static struct ProxyName{ ProxyName() { Func; } } s_##ProxyName;
