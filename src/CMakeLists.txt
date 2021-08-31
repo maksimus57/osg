@@ -27,7 +27,7 @@ FOREACH( mylibfolder
         osgTerrain
         # osgWidget
         # osgPresentation
-        #osgWrappers/serializers
+        osgWrappers/serializers
         osgPlugins
     ####
     )
